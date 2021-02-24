@@ -233,3 +233,167 @@ int main() {
         cout << a[i] << ' ';
     }
 }*/
+
+//Bai1
+/*int main() {
+    int n;
+    cin >> n;
+    int arr[n];
+    double mean = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        mean += arr[i];
+    }
+    mean = mean / n;
+    double variance = 0;
+    for (int i = 0; i < n; i++) {
+        variance += pow(arr[i] - mean, 2);
+    }
+    variance /= n;
+    cout << mean << ' ' << variance;
+}*/
+
+//Bai2
+/*int main() {
+    int n;
+    cin >> n;
+    int arr[n];
+    int min, 
+        max, 
+        evenSum = 0, 
+        oddCount = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        if (i == 0) {
+            max = arr[i];
+            min = arr[i];
+        }
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+        else {
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+        if (arr[i] % 2 == 1) {
+            oddCount++;
+        }
+        else {
+            evenSum += arr[i];
+        }
+    }
+    cout << max << ' ' << min << ' ' << oddCount << ' ' << evenSum;
+}*/
+
+//Bai3
+/*int main() {
+    int n;
+    cin >> n;
+    vector <int> arr(n);
+    int a[10];
+    for (int i = 0; i < 10; i++) {
+        a[i] = 0;
+    }
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        a[arr[i]]++;
+    }
+    for (int i = 0; i < 10; i++) {
+        cout << i << ' ' << a[i] << endl;
+    }
+}*/
+
+//Bai4
+/*int main() {
+    int n;
+    cin >> n;
+    vector <vector<int>> a(n);
+    for (int i = 0; i < n; i++) {
+        vector <int> arr(i + 1);
+        arr[0] = 1;
+        arr[i] = 1;
+        if (i > 1) {
+            for (int j = 1; j < i; j++) {
+                arr[j] = a[i - 1][j] + a[i - 1][j - 1];
+            }
+        }
+        a[i] = arr;
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < a[i].size(); j++) {
+            cout << setw(6) << a[i][j];
+        }
+        cout << endl;
+    }
+}*/
+
+//Bai5
+class mark {
+    string name;
+    double math;
+    double physic;
+    double english;
+    double mean;
+public:
+    mark() {
+        math = 0;
+        physic = 0;
+        english = 0;
+        mean = 0;
+    }
+    mark(string _name,double _math, double _physic, double _english) {
+        name = _name;
+        math = _math;
+        physic = _physic;
+        english = _english;
+        mean = (_math + _physic + _english) / 3;
+    }
+    void setName(string sName) {
+        name = sName;
+    }
+    string getName() {
+        return name;
+    }
+    double getMath() {
+        return math;
+    }
+    double getPhysic() {
+        return physic;
+    }
+    double getEnglish() {
+        return english;
+    }
+    double getMean() {
+        return mean;
+    }
+    void operator= (mark sv) {
+        name = sv.name;
+        math = sv.math;
+        physic = sv.physic;
+        english = sv.english;
+        mean = sv.mean;
+    }
+};
+ostream& operator<< (ostream& out, mark sinhVien) {
+    out << fixed << setprecision(1) << setw(12) << sinhVien.getName() << setw(5) << sinhVien.getMath()
+        << setw(7) << sinhVien.getPhysic() << setw(8) << sinhVien.getEnglish() << setw(5)  << sinhVien.getMean() << endl;
+    return out;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector <mark> arr(n);
+    for (int i = 0; i < n; i++) {
+        double math, physic, english;
+        cin >> math >> physic >> english;
+        string name = "Sinh Vien " + to_string(i + 1);
+        mark sv(name, math, physic, english);
+        arr[i] = sv;
+    }
+    cout << setw(17) << "Math" << setw(7) << "Physic" << setw(8) << "English" << setw(5) << "Mean" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << arr[i];
+    } 
+}
