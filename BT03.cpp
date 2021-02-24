@@ -329,7 +329,7 @@ int main() {
 }*/
 
 //Bai5
-class mark {
+/*class mark {
     string name;
     double math;
     double physic;
@@ -342,7 +342,7 @@ public:
         english = 0;
         mean = 0;
     }
-    mark(string _name,double _math, double _physic, double _english) {
+    mark(string _name, double _math, double _physic, double _english) {
         name = _name;
         math = _math;
         physic = _physic;
@@ -374,6 +374,15 @@ public:
         english = sv.english;
         mean = sv.mean;
     }
+    void swap(mark &sv) {
+        mark sw(name, math, physic, english);
+        name = sv.name;
+        math = sv.math;
+        physic = sv.physic;
+        english = sv.english;
+        mean = sv.mean;
+        sv = sw;
+    }
 };
 ostream& operator<< (ostream& out, mark sinhVien) {
     out << fixed << setprecision(1) << setw(12) << sinhVien.getName() << setw(5) << sinhVien.getMath()
@@ -381,10 +390,8 @@ ostream& operator<< (ostream& out, mark sinhVien) {
     return out;
 }
 
-int main() {
-    int n;
-    cin >> n;
-    vector <mark> arr(n);
+
+void inputList(vector <mark> &arr, int n) {
     for (int i = 0; i < n; i++) {
         double math, physic, english;
         cin >> math >> physic >> english;
@@ -392,8 +399,116 @@ int main() {
         mark sv(name, math, physic, english);
         arr[i] = sv;
     }
+}
+void outputList(vector <mark> arr, int n) {
     cout << setw(17) << "Math" << setw(7) << "Physic" << setw(8) << "English" << setw(5) << "Mean" << endl;
     for (int i = 0; i < n; i++) {
         cout << arr[i];
-    } 
+    }
+}
+
+void sortByMath(vector <mark> &arr, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j].getMath() > arr[i].getMath()) {
+                arr[j].swap(arr[i]);
+            }
+            else {
+                if (arr[j].getMean() > arr[i].getMean()) {
+                    arr[j].swap(arr[i]);
+                }
+            }
+        }
+    }
+}
+
+void sortByPhysic(vector <mark> &arr, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j].getPhysic() > arr[i].getPhysic()) {
+                arr[j].swap(arr[i]);
+            }
+            else {
+                if (arr[j].getMean() > arr[i].getMean()) {
+                    arr[j].swap(arr[i]);
+                }
+            }
+        }
+    }
+}
+
+void sortByEnglish(vector <mark> &arr, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j].getEnglish() > arr[i].getEnglish()) {
+                arr[j].swap(arr[i]);
+            }
+            else {
+                if (arr[j].getMean() > arr[i].getMean()) {
+                    arr[j].swap(arr[i]);
+                }
+            }
+        }
+    }
+}
+
+void sortByMean(vector <mark> &arr, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j].getMean() > arr[i].getMean()) {
+                arr[j].swap(arr[i]);
+            }
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector <mark> arr(n);
+    inputList(arr, n);
+    sortByMath(arr, n);
+    outputList(arr, n);
+    cout << endl;
+    sortByPhysic(arr, n);
+    outputList(arr, n);
+    cout << endl;
+    sortByMean(arr, n);
+    outputList(arr, n);
+}*/
+
+//Bai6
+class buyStuff {
+    string name;
+    double amount;
+    double costPerAmount;
+    bool necessity;
+public:
+    buyStuff() {
+        amount = 0;
+        costPerAmount = 0;
+        necessity = false;
+    }
+    buyStuff(string _name, double _costPerAmount, double _cost) {
+        name = _name;
+        amount = _costPerAmount;
+        costPerAmount = _costPerAmount;
+        necessity = false;
+    }
+    double moneyCost() {
+        return amount * costPerAmount;
+    }
+};
+
+bool buyAll(buyStuff list[], int n, double cash) {
+    double totalCost = 0;
+    for (int i = 0; i < n; i++) {
+        totalCost += list[i].moneyCost();
+    }
+    if (totalCost > cash) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
